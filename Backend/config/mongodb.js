@@ -9,16 +9,18 @@ const connectDB = async () => {
   }
 
   try {
-    mongoose.connection.on('connected', () => {
-      console.log('✅ MongoDB connected');
-    });
-
-    await mongoose.connect(`${process.env.MONGODB_URI}/e-commerce`, {
+    const db = await mongoose.connect(`${process.env.MONGODB_URI}/e-commerce`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
 
-    isConnected = true;
+    isConnected = db.connections[0].readyState === 1;
+
+    if (isConnected) {
+      console.log('✅ MongoDB fully connected');
+    } else {
+      console.log('⚠️ MongoDB connection not fully ready');
+    }
   } catch (error) {
     console.error('❌ MongoDB connection failed:', error.message);
     throw error;
