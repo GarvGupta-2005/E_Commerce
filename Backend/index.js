@@ -16,10 +16,15 @@ cloudinaryConnect()
 
 //middlewares 
 app.use(express.json())
+const allowedOrigins = [
+  "http://localhost:4000",
+  "https://e-commerce-frontend-eta-rouge.vercel.app"
+];
+
 app.use(cors({
   origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'token'],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "token"],
   credentials: true
 }));
 
