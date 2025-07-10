@@ -1,7 +1,13 @@
 import express from 'express'
 
-import { placeOrder,userOrders,allOrders,updateStatus } from '../controllers/orderController.js'
-
+import {
+  placeOrder,
+  placeOrderMockPay,
+  verifyMockPayment,
+  allOrders,
+  userOrders,
+  updateStatus
+} from '../controllers/orderController.js'
 import authAdmin from '../middleware/adminAuth.js'
 import authUser from '../middleware/auth.js'
 
@@ -13,8 +19,8 @@ orderRouter.post('/status',authAdmin,updateStatus);
 
 //Payment Features
 orderRouter.post('/place',authUser,placeOrder);
-// orderRouter.post('/stripe',authUser,placeOrderStripe);
-// orderRouter.post('/razorpay',authUser,placeOrderRazorpay);
+orderRouter.post('/mockpay', authUser, placeOrderMockPay); // Mock Razorpay
+orderRouter.post('/mockverify', authUser, verifyMockPayment); // Mock verification
 
 //User features
 orderRouter.post('/userorders',authUser,userOrders);
