@@ -18,7 +18,6 @@ const Orders = () => {
       }
 
       const response = await axios.post(backendURL+'/api/order/userorders',{},{headers:{token}})
-      console.log(response.data)
       if(response.data.success){
         let allOrderItems = []
         response.data.orders.map((order)=>{

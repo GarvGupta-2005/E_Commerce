@@ -65,31 +65,7 @@ const PlaceOrders = () => {
             toast.error(response.data.message)
           }
           break;
-        case 'mockpay':
-          const createRes = await axios.post(backendURL + '/api/order/mockpay', orderData, {
-            headers: { token },
-          });
-
-          if (createRes.data.success) {
-            const orderId = createRes.data.orderId;
-            toast.info("Redirecting to fake payment...");
-
-            setTimeout(async () => {
-              const verifyRes = await axios.post(backendURL + '/api/order/mockverify', { orderId }, {
-                headers: { token },
-              });
-              if (verifyRes.data.success) {
-                setCartItems({});
-                navigate('/orders');
-                toast.success("Mock Payment Successful & Order Placed 🎉");
-              } else {
-                toast.error("Payment Failed");
-              }
-            }, 1500);
-          } else {
-            toast.error(createRes.data.message);
-          }
-          break;
+        
 
         default:
           break;
@@ -143,10 +119,10 @@ const PlaceOrders = () => {
               <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'stripe' ? 'bg-green-600' : ''}`}></p>
               <img className='h-5 mx-4' src={assets.stripe_logo} alt='pay'></img>
             </div> */}
-            {<div onClick={() => setMethod('mockpay')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
-              <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'mockpay' ? 'bg-green-600' : ''}`}></p>
+            {/* <div onClick={() => setMethod('razorpay')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
+              <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'razorpay' ? 'bg-green-600' : ''}`}></p>
               <img className='h-5 mx-4' src={assets.razorpay_logo} alt='pay'></img>
-            </div>}
+            </div> */}
             <div onClick={() => setMethod('cod')} className='flex items-center gap-3 border p-2 px-3 cursor-pointer'>
               <p className={`min-w-3.5 h-3.5 border rounded-full ${method === 'cod' ? 'bg-green-600' : ''}`}></p>
               <p className='text-gray-500 text-sm font-semibold mx-4'>CASH ON DELIVERY</p>

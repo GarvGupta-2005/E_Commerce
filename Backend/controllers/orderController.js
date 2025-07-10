@@ -24,52 +24,15 @@ const placeOrder = async (req,res)=>{
 }
 
 
-const placeOrderMockPay = async (req, res) => {
-  try {
-    const { userId, items, amount, address } = req.body;
+// //placing order using Stripe
+// const placeOrderStripe = async (req,res)=>{
 
-    const mockOrderId = "order_mock_" + Math.random().toString(36).substring(2, 10);
+// }
 
-    const orderData = {
-      userId,
-      items,
-      address,
-      amount,
-      paymentMethod: "Online (Mock)",
-      payment: false,
-      date: Date.now(),
-      status: "Payment Pending",
-      razorpayOrderId: mockOrderId,
-    };
+//placing order using razorpay
+// const placeOrderRazorpay = async (req,res)=>{
 
-    const newOrder = new orderModel(orderData);
-    await newOrder.save();
-
-    await userModel.findByIdAndUpdate(userId, { cartData: {} });
-
-    res.json({ success: true, orderId: newOrder._id, mockOrderId });
-  } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: error.message });
-  }
-};
-
-// Mock Razorpay - Payment Verification
-const verifyMockPayment = async (req, res) => {
-  try {
-    const { orderId } = req.body;
-
-    await orderModel.findByIdAndUpdate(orderId, {
-      payment: true,
-      status: "Order Placed",
-    });
-
-    res.json({ success: true, message: "Payment verified and order placed." });
-  } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: error.message });
-  }
-};
+// }
 
 //all orders for admin data 
 const allOrders = async (req,res)=>{
@@ -111,4 +74,4 @@ const updateStatus = async (req,res)=>{
     }
 }
 
-export {placeOrder,allOrders,userOrders,updateStatus,placeOrderMockPay,verifyMockPayment}
+export {placeOrder,allOrders,userOrders,updateStatus}
