@@ -15,9 +15,12 @@ const PORT = process.env.PORT || 4000;
 
 // ✅ CORS Setup for frontend ↔ backend communication
 const allowedOrigins = [
+  "http://localhost:3000",
   "http://localhost:4000",
-  "https://e-commerce-frontend-eta-rouge.vercel.app"
+  "https://e-commerce-frontend-eta-rouge.vercel.app",
+  "https://e-commerce-frontend-jg0iz462k-garv-guptas-projects.vercel.app"
 ];
+
 
 app.use(cors({
   origin: allowedOrigins,
